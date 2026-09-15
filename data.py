@@ -27,7 +27,16 @@ def parse_time(raw):
         return None
 
 def validate_prog(y1, y2, y3, threshold=0.25):
-    pass
+    warnings = []
+    change1 = abs((y2 - y1) / y1)
+    change2 = abs((y3 - y2) / y2)
+    
+    if change1 > threshold:
+        warnings.append(f"Year 1 to 2 changed by {change1:.2%}")
+    if change2 > threshold:
+        warnings.append(f"Year 2 to 3 changed by {change2:.2%}")
+
+    return warnings
 
 def compute_improvement(df):
     pass

@@ -1,5 +1,5 @@
 import pytest
-from data import parse_time
+from data import parse_time, validate_prog
 
 @pytest.mark.parametrize("raw,expected", [
     ("1:02.45", 62.45),
@@ -15,3 +15,11 @@ from data import parse_time
 def test_parse_time(raw, expected):
     # Verifies req 1 and req 2
     assert parse_time(raw) == expected
+
+def test_progression():
+    result = validate_prog(55.20, 53.80, 53.10)
+    assert result == []
+
+def test_flagged():
+    result = validate_prog(5.20, 53.80, 53.10)
+    assert len(result) > 0
